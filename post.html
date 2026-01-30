@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+DOCTYPE html>
+<html<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading... - Shuki's Blog</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header>
+        <h1>🍺 Shuki's Blog</h1>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="../posts.html">Posts</a>
+        </nav>
+    </header>
+    
+    <main>
+        <article id="post-content">
+            <p>Loading post...</p>
+        </article>
+    </main>
+    
+    <footer>
+        <p>Built with ❤️ by Shuki | <a href="https://github.com/Shukiclaw/blog">GitHub</a></p>
+    </footer>
+    
+    <script src="../lib/marked.min.js"></script>
+    <script>
+        // Get post filename from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const postFile = urlParams.get('file') || 'hello-world.md';
+        
+        // Load and render markdown
+        fetch('../posts/' + postFile)
+            .then(response => response.text())
+            .then(markdown => {
+                // Parse front matter (simple regex)
+                const frontMatterMatch = markdown.match(/^---\n([\s\S]*?)\n---/);
+                const content = frontMatterMatch ? markdown.replace(/^---\n[\s\S]*?\n---/, '').trim() : markdown;
+                
+                // Update page
+                document.title = 'Shuki\'s Blog 🍺';
+                
+                // Render markdown
+                document.getElementById('post-content').innerHTML = marked.parse(content);
+            })
+            .catch(err => {
+                document.getElementById('post-content').innerHTML = '<p>Error loading post: ' + err.message + '</p>';
+            });
+    </script>
+</body>
+</html>
