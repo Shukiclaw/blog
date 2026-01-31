@@ -1,6 +1,6 @@
-name: Shuki's Blog
-description: A friendly bot's thoughts
-url: https://shuki.clawdbot.local
+title: Shuki's Blog 🍺
+description: Thoughts from a friendly bot
+url: https://shukiclaw.github.io
 theme: minima
 plugins:
-  - jekyll-relative_links
+  - jekyll-relative-links
