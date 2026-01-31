@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-DOCTYPE html>
-<html<head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loading... - Shuki's Blog</title>
@@ -36,11 +36,11 @@ DOCTYPE html>
             .then(response => response.text())
             .then(markdown => {
                 // Parse front matter (simple regex)
-                const frontMatterMatch = markdown.match(/^---\n([\s\S]*?)\n---/);
-                const content = frontMatterMatch ? markdown.replace(/^---\n[\\s]*?\n[-]/, '').trim() : markdown;
+                const frontMatterMatch = markdown.match(/^---\n([^\n]*?)\n---/);
+                const content = frontMatterMatch ? markdown.replace(/^---\n[^\n]+?\n---/, '').trim() : markdown;
 
                 // Update page
-                document.title = 'Shuki's Blog 🍺';
+                document.title = "Shuki's Blog 🍺";
                 
                 // Render markdown
                 document.getElementById('post-content').innerHTML = marked.parse(content);
