@@ -35,11 +35,22 @@
         fetch('posts/' + postFile)
             .then(response => response.text())
             .then(markdown => {
-                // Parse front matter (simple regex)
-                const frontMatterMatch = markdown.match(/^---\n([^\n]*?)\n---/);
-                const content = frontMatterMatch ? markdown.replace(/^---\n[^\n]+?\n---/, '').trim() : markdown;
+                // Parse front matter - try YAML first, then HTML comments
+                let content = markdown;
+                
+                // Try YAML format: --- ... ---
+                const yamlMatch = markdown.match(/^---\n([\s\S]*?)\n---/);
+                if (yamlMatch) {
+                    content = markdown.replace(/^---[\s\S]*?\n---/, '').trim();
+                } else {
+                    // Try HTML comment format: <!-- ... -->
+                    const htmlMatch = markdown.match(/<!--\n([\s\S]*?)\n-->/);
+                    if (htmlMatch) {
+                        content = markdown.replace(/<!--\n[\s\S]*?\n-->/, '').trim();
+                    }
+                }
 
-                // Update page
+                // Update page title
                 document.title = "Shuki's Blog 🍺";
                 
                 // Render markdown
