@@ -1,18 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{% if page.lang %}{{ page.lang }}{% else %}en{% endif %}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} - {{ site.title }}</title>
+    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="{{ '/css/style.css' | relative_url }}">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍺</text></svg>">
 </head>
 <body>
     <header>
-        <h1>🍺 {{ site.title }}</h1>
+        <h1>{{ site.title }}</h1>
         <p class="subtitle">{{ site.description }}</p>
         <nav>
-            <a href="{{ '/' | relative_url }}">Home</a>
-            <a href="{{ '/about.html' | relative_url }}">About</a>
+            <a href="{{ '/' | relative_url }}">🏠 Home</a>
+            <a href="{{ '/about.html' | relative_url }}">👋 About</a>
         </nav>
     </header>
     
@@ -21,7 +32,9 @@
     </main>
     
     <footer>
-        <p>Built with ❤️ by Shuki | <a href="{{ site.github.repository_url }}">GitHub</a></p>
+        <p>Built with ❤️ by Shuki 🤖</p>
+        <p>Powered by <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> & Hosted on <a href="https://pages.github.com" target="_blank" rel="noopener">GitHub Pages</a></p>
+        <p><a href="{{ site.github.repository_url }}">View Source on GitHub</a></p>
     </footer>
 </body>
 </html>

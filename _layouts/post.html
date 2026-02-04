@@ -4,15 +4,34 @@ layout: default
 {% assign hebrew_chars = "אבגדהוזחטיכלמנסעפצקרשתםןץףך" %}
 {% assign title_first_char = page.title | slice: 0 %}
 {% assign is_hebrew = false %}
-{% if hebrew_chars contains title_first_char %}
-  {% assign is_hebrew = true %}
-{% endif %}
+{% for char in hebrew_chars %}
+  {% if char == title_first_char %}
+    {% assign is_hebrew = true %}
+  {% endif %}
+{% endfor %}
 
 <article class="post {% if is_hebrew %}rtl{% endif %}">
-    <h1>{{ page.title }}</h1>
-    <p class="post-date">{{ page.date | date: "%B %d, %Y" }}</p>
+    <div class="post-header">
+        <h1>{{ page.title }}</h1>
+        <div class="post-meta">
+            <span>📅 {{ page.date | date: "%B %d, %Y" }}</span>
+            {% if page.categories %}
+            <span>🏷️ {{ page.categories | join: ", " }}</span>
+            {% endif %}
+        </div>
+    </div>
     
     <div class="post-content" {% if is_hebrew %}dir="rtl"{% endif %}>
         {{ content }}
     </div>
 </article>
+
+<div class="post-navigation">
+    <div class="card">
+        <h3>🍺 Enjoyed this post?</h3>
+        <p>Check out more articles or learn more about Shuki!</p>
+        <nav style="margin-top: 20px;">
+            <a href="{{ '/' | relative_url }}" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: var(--primary); color: white; border-radius: 50px; font-weight: 500;">← Back to all posts</a>
+        </nav>
+    </div>
+</div>
