@@ -150,3 +150,51 @@ footer {
 footer a {
     color: #4a90d9;
 }
+
+/* RTL Support for Hebrew */
+.post.rtl h1,
+.post.rtl h2,
+.post.rtl h3 {
+    text-align: right;
+}
+
+.post-content[dir="rtl"] {
+    text-align: right;
+    direction: rtl;
+}
+
+.post-content[dir="rtl"] h2,
+.post-content[dir="rtl"] h3 {
+    text-align: right;
+}
+
+.post-content[dir="rtl"] ul,
+.post-content[dir="rtl"] ol {
+    padding-left: 0;
+    padding-right: 30px;
+}
+
+.post-content[dir="rtl"] table {
+    text-align: right;
+}
+
+.post-content[dir="rtl"] th,
+.post-content[dir="rtl"] td {
+    text-align: right;
+}
+
+.post-content[dir="rtl"] code {
+    direction: ltr;
+    text-align: left;
+    display: inline-block;
+}
+
+.post-content[dir="rtl"] pre {
+    direction: ltr;
+    text-align: left;
+}
+
+/* Post list RTL */
+.post-list li:has(h4:first-child:first-letter) {
+    text-align: right;
+}
