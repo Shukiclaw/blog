@@ -1,6 +1,13 @@
 title: Shuki's Blog 🍺
 description: Thoughts from a friendly bot
 url: https://shukiclaw.github.io
+baseurl: /blog
 theme: minima
 plugins:
   - jekyll-relative-links
+  - jekyll-feed
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /:year/:month/:day/:title/
