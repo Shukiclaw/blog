@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מבחר ספרים - צוות אגף חינוך זבולון</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Arial Hebrew', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .presentation {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .slide {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin: 30px auto;
+            padding: 50px;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .title-slide {
+            text-align: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+        }
+        
+        .title-slide::before {
+            background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
+        }
+        
+        .title-slide h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .title-slide .subtitle {
+            font-size: 1.8em;
+            color: #00d2ff;
+            margin-bottom: 40px;
+        }
+        
+        .title-slide .dept {
+            font-size: 1.3em;
+            color: #aaa;
+            border-top: 2px solid #333;
+            padding-top: 30px;
+            margin-top: 40px;
+        }
+        
+        .book-slide h2 {
+            font-size: 2.5em;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        
+        .book-slide .author {
+            font-size: 1.4em;
+            color: #764ba2;
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+        
+        .book-slide .chapter-title {
+            font-size: 1.2em;
+            color: #f5576c;
+            margin-bottom: 20px;
+            font-weight: bold;
+            border-right: 4px solid #f5576c;
+            padding-right: 15px;
+        }
+        
+        .book-slide .excerpt {
+            font-size: 1.15em;
+            line-height: 1.9;
+            color: #444;
+            text-align: justify;
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            border-right: 5px solid #667eea;
+        }
+        
+        .book-slide .excerpt p {
+            margin-bottom: 15px;
+        }
+        
+        .book-number {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+            background: rgba(255,255,255,0.95);
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .nav-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .slide-counter {
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        @media print {
+            .navigation { display: none; }
+            .slide { 
+                page-break-after: always; 
+                box-shadow: none;
+                margin: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .slide { padding: 30px 20px; }
+            .title-slide h1 { font-size: 2.2em; }
+            .book-slide h2 { font-size: 1.8em; }
+            .book-slide .excerpt { font-size: 1em; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Slide 1: Title -->
+        <div class="slide title-slide" data-slide="0">
+            <h1>📚 מבחר ספרים מומלצים</h1>
+            <div class="subtitle">להורים ולמתבגרים בעתות משבר</div>
+            <div style="font-size: 1.1em; color: #ccc; margin-top: 20px;">
+                13 מבחר ספרים ללמידה, השראה והתמודדות
+            </div>
+            <div class="dept">
+                צוות אגף חינוך<br>
+                מועצה אזורית זבולון
+            </div>
+        </div>
+
+        <!-- Book 1 -->
+        <div class="slide book-slide hidden" data-slide="1">
+            <div class="book-number">1</div>
+            <h2>בני נוער ומלחמות</h2>
+            <div class="author">מאת: זוהר נוילנדר</div>
+            <div class="chapter-title">פרק פתיחה: עולם משתנה</div>
+            <div class="excerpt">
+                <p>הייתי בן ארבע עשרה כשהבנתי לראשונה שהעולם לא בנוי רק מבתי ספר, חברים והופעות. הייתי עומד במרפסת הבית ברמת גן, מביט בשמיים המעוננים, ופתאום שמעתי את הצפירה הראשונה.</p>
+                <p>אמא רצה אליי, אחזה בידי חזק, ומשכה אותי אל הממ"ד. אבל במבט אחד ראיתי בעיניה משהו שלא הכרתי – פחד. לא הפחד הרגיל של הורים שילדם איחר לחזור מהמסיבה, אלא פחד אחר. עמוק יותר.</p>
+                <p>מאז אותו יום, הבנתי שאנחנו, בני הנוער, נושאים על כתפינו משהו גדול מכולנו. אנחנו צומחים בתוך מציאות שאינה פשוטה, ואנחנו לומדים להתאים את עצמנו לעולם שמשתנה מדי יום.</p>
+            </div>
+        </div>
+
+        <!-- Book 2 -->
+        <div class="slide book-slide hidden" data-slide="2">
+            <div class="book-number">2</div>
+            <h2>אימהות עייפות</h2>
+            <div class="author">מאת: חן אבאי</div>
+            <div class="chapter-title">פרק פתיחה: האמת שאנחנו לא מדברות עליה</div>
+            <div class="excerpt">
+                <p>התעוררתי היום בחמש בבוקר. שוב. לא בגלל שהתינוק בכה – הוא כבר גדול. לא בגלל שמישהו צריך משהו דחוף. פשוט התעוררתי, והראש התחיל לרוץ.</p>
+                <p>הרשימות. התזכורות. הארוחות. הבגדים. השיעורים. המשימות. העבודה. הבית. הכל רץ בראש כמו סרט שמנוגן במהירות כפולה, ואני שוכבת במיטה, מביטה בתקרה, ומתה מעייפות.</p>
+                <p>אני אמא. אני אוהבת את הילדים שלי בכל נשמתי. אבל אני גם עייפה. כל כך עייפה. ולכאורה, אסור לי להגיד את זה. כי אמא טובה לא מתלוננת. אמא טובה תמיד מחייכת. אמא טובה לא נשברת.</p>
+                <p>אז אני שוכבת פה, בחמש בבוקר, ומחכה שהיום יתחיל. שוב.</p>
+            </div>
+        </div>
+
+        <!-- Book 3 -->
+        <div class="slide book-slide hidden" data-slide="3">
+            <div class="book-number">3</div>
+            <h2>מתכונים בחירום</h2>
+            <div class="author">מאת: גילי בן ארי</div>
+            <div class="chapter-title">פרק פתיחה: המטבח כמקלט</div>
+            <div class="excerpt">
+                <p>המטבח שלי תמיד היה המקום הבטוח שלי. גם כשהצבעים נפלו, גם כשהחדשות נראו אפורות מדי, גם כשהלב נשבר – תמיד הייתה לי את ההבניה של הבצק, את הריח של הקמח, את הצפצוף של הקומקום.</p>
+                <p>בימים הקשים האלה, כשהילדים חוזרים מהגן ומהבית ספר עם עיניים עצובות, אני יודעת שיש לי כוח אחד – להכין להם ארוחה שתחמם את הבטן ואולי גם את הנשמה.</p>
+                <p>בספר הזה אספתי את המתכונים הפשוטים ביותר, אלה שעובדים גם כשיש הפסקות חשמל, גם כשיש מחסור במצרכים, וגם כשהראש לא עובד כמו שצריך. כי בזמנים כאלה, ארוחה טובה היא לא פינוק – היא הישרדות.</p>
+            </div>
+        </div>
+
+        <!-- Book 4 -->
+        <div class="slide book-slide hidden" data-slide="4">
+            <div class="book-number">4</div>
+            <h2>כל האנשים הרגילים שהם לא רגילים</h2>
+            <div class="author">מאת: ורד מקונן</div>
+            <div class="chapter-title">פרק פתיחה: הסיפורים שאנחנו לא רואים</div>
+            <div class="excerpt">
+                <p>שכני מהקומה מעליי נראה כמו אדם רגיל. יוצא בבוקר, חוזר בערב, מברך אותי במדרגות בחיוך קטן. עד שיום אחד גיליתי שהוא מדריך צלילה שמתנדב לעבוד עם ילדים עם צרכים מיוחדים.</p>
+                <p>המוכרת בסופר נראית רגילה. עומדת מאחורי הקופה, סורקת מוצרים, שואלת אם צריך שקיות. עד ששמעתי שהיא מלמדת ערבית ליהודים ועברית לערבים בזמנה הפנוי.</p>
+                <p>אנחנו חיים בתוך רשת של אנשים מדהימים, ורוב הזמן אנחנו אפילו לא יודעים את זה. כל אחד סביבנו נושא סיפור, מתנה, יכולת – משהו שהופך אותו לפחות רגיל ממה שנדמה.</p>
+                <p>הספר הזה הוא מסע לפגוש את האנשים האלה, לשמוע את הסיפורים שלהם, ולהבין שאולי גם אנחנו לא כל כך רגילים כמו שחשבנו.</p>
+            </div>
+        </div>
+
+        <!-- Book 5 -->
+        <div class="slide book-slide hidden" data-slide="5">
+            <div class="book-number">5</div>
+            <h2>אימהות עם בעל וילד במילואים</h2>
+            <div class="author">מאת: אושרת אברג'יל</div>
+            <div class="chapter-title">פרק פתיחה: לבד בבית</div>
+            <div class="excerpt">
+                <p>הדלת נסגרה בבוקר שבת, והבית פתאום נשמע ריק מדי. הבן שלי לבוש במדים, עם התיק הגדול על הגב, מחייך אליי בניסיון להיראות אמיץ. בעלי יצא כבר שלשום. עכשיו זה רק אני.</p>
+                <p>הטלפון נשאר על השולחן, מסך דולק, עין תמידית על הווטסאפ. כל צפצוף מרים את הלב. כל שקט מכביד על החזה. אני מנסה לשמור על שגרה – לאכול, לישון, לעבוד – אבל המחשבות לא נותנות לי מנוחה.</p>
+                <p>בלילה אני שוכבת במיטה, מביטה במספרים המוארים על השעון, ומנסה לדמיין איפה הם עכשיו. האם הם אוכלים? האם הם ישנים? האם הם בטוחים?</p>
+                <p>אני אם, ואני אשת חייל, ובימים האלה אני לומדת מה זה אומץ אמיתי – זה שמחייב אותי לקום בבוקר ולהמשיך לחיות, גם כשהלב נשאר שם, איתם, במקום שאני לא יכולה להגיע אליו.</p>
+            </div>
+        </div>
+
+        <!-- Book 6 -->
+        <div class="slide book-slide hidden" data-slide="6">
+            <div class="book-number">6</div>
+            <h2>אנחנו ההורים במציאות לא קלה, כמה שאפשר!</h2>
+            <div class="author">מאת: רחל קרץ</div>
+            <div class="chapter-title">פרק פתיחה: לגדל ילדים בעתות משבר</div>
+            <div class="excerpt">
+                <p>אף אחד לא מכין אותנו לזה. בסדנאות הורות מדברים על גבולות, על שינה, על גמילה ממוצץ. אף אחד לא מדבר על איך מסבירים לילד בן חמש למה צריך לרוץ לממ"ד, או איך מנחמים ילדה בן עשר שחבר של אבא שלה נפל.</p>
+                <p>אנחנו ההורים של היום נמצאים במציאות שלא בחרנו בה. אנחנו מנסים לשמור על שגרה כשאין שגרה, לתת ביטחון כשאנחנו עצמנו מפחדים, לחייך כשהלב כבד.</p>
+                <p>ובכל זאת – אנחנו ממשיכים. כי אין ברירה אחרת. כי הילדים צריכים אותנו. כי אנחנו ההורים, וההורות לא לוקחת חופשה גם כשהעולם משתגע.</p>
+                <p>בספר הזה אני משתפת מהלמדתי – לא תיאוריות מושלמות, אלא טיפים אמיתיים מחיים אמיתיים. כי כולנו עושים כמה שאפשר, ולפעמים זה מספיק.</p>
+            </div>
+        </div>
+
+        <!-- Book 7 -->
+        <div class="slide book-slide hidden" data-slide="7">
+            <div class="book-number">7</div>
+            <h2>הטיל שיפסיק להתפצל יקל עלינו וניירט אותו</h2>
+            <div class="author">מאת: רותם שלום</div>
+            <div class="chapter-title">פרק פתיחה: כשהילד שלי הוא כדור שרגל</div>
+            <div class="excerpt">
+                <p>אמא שלי אומרת שתמיד הייתי כזה. עוד מגן חובה – מסיים משחק עם חבר אחד, עובר לשני, מתחיל עם שלישי, וכולם חברים טובים אבל אף אחד לא "החבר הכי טוב".</p>
+                <p>בבית ספר היסודי זה היה בסדר. בחטיבה זה כבר היה קצת בעייתי. והיום, בתיכון? אני מרגיש כמו טיל שמתפצל – רגע כאן עם החבורה מכדורגל, רגע שם עם אלה מהאקדמיה, רגע עם חברי הישן מהשכונה.</p>
+                <p>אבל אף אחד לא באמת מכיר אותי. לא באמת. כי בכל מקום אני מראה קצת אחרת. מתאים את עצמי. משתנה. ולפעמים אני מתעייף מזה. רוצה פשוט להיות אני, בלי להתפצל, בלי להתאים, בלי לפחד שאם אני אהיה אני באמת – אף אחד לא ירצה אותי.</p>
+            </div>
+        </div>
+
+        <!-- Book 8 -->
+        <div class="slide book-slide hidden" data-slide="8">
+            <div class="book-number">8</div>
+            <h2>המדריך לאיך להתחיל עבודה בזמן חירום</h2>
+            <div class="author">מאת: אור רובינסון</div>
+            <div class="chapter-title">פרק פתיחה: כשהעולם מתפוצץ, המשכורת מחכה</div>
+            <div class="excerpt">
+                <p>הצפירה הראשונה נשמעה בדיוק כשהייתי באמצע ראיון עבודה בזום. פתאום הכל רעד, ואני רץ לממ"ד עם הלפטופ ביד, מנסה להיראות מקצועי ולא להתקע באמצע משפט.</p>
+                <p>החבר'ה בחדר נראו בהלם. אני? כבר התרגלתי. זה החיים שלנו עכשיו. אנחנו עובדים מתוך מקלטים, מנפיקים דוחות בין אזעקה לצפירה, עונים למיילים מהמיטה בחדר הביטחון.</p>
+                <p>זה לא פשוט. זה לא נורמלי. אבל זה המציאות. ואם אנחנו רוצים להמשיך לחיות – לא רק לשרוד, אלא באמת לחיות – אנחנו חייבים למצוא דרך לעבוד גם כשקשה.</p>
+                <p>במדריך הזה אני משתף את מה שלמדתי – איך לנהל זמן כשאין זמן, איך להיות פרודוקטיבי כשהראש במקום אחר, ואיך לשמור על שפיות כשהעולם משתגע.</p>
+            </div>
+        </div>
+
+        <!-- Book 9 -->
+        <div class="slide book-slide hidden" data-slide="9">
+            <div class="book-number">9</div>
+            <h2>השגרה חשובה היא שומרת עלינו</h2>
+            <div class="author">מאת: ערנית מנדל</div>
+            <div class="chapter-title">פרק פתיחה: הכוח של הבננה בבוקר</div>
+            <div class="excerpt">
+                <p>בימים הכי קשים, כשהחדשות מפחידות וליבי כבד, יש דבר אחד שאני עושה בלי פשרות – אני מכינה לילדים ארוחת בוקר. לא ארוחה מפוארת. בננה, לחם, משהו לשתות.</p>
+                <p>זה נשמע קטן, לא? אבל זה לא. כי כשאני עומדת במטבח ופוסלת את הבננה בדיוק כמו שאוהבת הבת הקטנה, אני נותנת לה את המסר הכי חשוב: העולם בחוץ יכול להשתגע, אבל אנחנו כאן. אנחנו ביחד. הכל בסדר.</p>
+                <p>השגרה היא לא עניין משעמם. השגרה היא אנך הצלה. בזמנים של אי-ודאות, כל דבר קטן שחוזר על עצמו – ארוחת בוקר, סיפור לפני שינה, חיבוק בפתח הדלת – נותן לילדים (ולנו) את הביטחון שהכל בסדר.</p>
+                <p>אז כן, אני ממשיכה לחתוך את הבננה. כי זו דרכי לשמור עליהם. ואולי, קצת, גם על עצמי.</p>
+            </div>
+        </div>
+
+        <!-- Book 10 -->
+        <div class="slide book-slide hidden" data-slide="10">
+            <div class="book-number">10</div>
+            <h2>החתולה, המפתח והמקלט השכונתי</h2>
+            <div class="author">מאת: נורית גזית</div>
+            <div class="chapter-title">פרק פתיחה: שושנה החתולה</div>
+            <div class="excerpt">
+                <p>שושנה היתה חתולה רחובית שבחרה לגור בכניסה של הבניין שלנו. אף אחד לא ידע מאיפה היא באה, אבל כולם ידעו שכשיש אזעקה – שושנה כבר מחכה במקלט השכונתי.</p>
+                <p>המקלט הזה הפך למקום מפגש מיוחד. שם פגשנו את השכנים שמעולם לא דיברנו איתם. שם שמענו סיפורים, שתפנו חששות, צחקנו ביחד כשהיה קשה מדי לבכות.</p>
+                <p>ושושנה? היא פשוט ישבה שם, על הקיר המחופה קרמיקה ישנה, ומציצה בעיניים ירוקות כאילו אמרה: "אני פה. הכל בסדר."</p>
+                <p>הספר הזה הוא סיפור על הקהילה שנולדה במקום הכי לא צפוי, על החיבורים שנוצרים בזמני משבר, ועל חתולה קטנה שהיתה הרבה יותר מסתם חתולה.</p>
+            </div>
+        </div>
+
+        <!-- Book 11 -->
+        <div class="slide book-slide hidden" data-slide="11">
+            <div class="book-number">11</div>
+            <h2>הבלון שהתפוצץ בפרצוף</h2>
+            <div class="author">מאת: מורן ורטהיים</div>
+            <div class="chapter-title">פרק פתיחה: הפייסבוק שלנו שקרן</div>
+            <div class="excerpt">
+                <p>התמונה שפרסמתי אתמול הראתה משפחה מושלמת. ארוחת ערב מזמינה, ילדים מחייכים, הכל בסדר. 127 לייקים. תגובות מקסימות. "איזו משפחה מדהימה!"</p>
+                <p>מה שאף אחד לא ראה: שעה לפני התמונה, הילד הבכור צעק עליי שהוא שונא אותי. הבן הצעיר סירב לאכול כי הלחם נגע בטחינה. בעלי ואני לא דיברנו כל היום כי רבנו בבוקר על משהו שלא זוכרים כבר מה.</p>
+                <p>זו הבלון שלנו – יפה, צבעוני, נראה מדהים מבחוץ. אבל בפנים? ריק מלא אוויר. וכל כך קל שיפוצץ בפרצוף.</p>
+                <p>בספר הזה אני כותבת על מה שקורה מאחורי התמונות. על הלחץ, הפחד, הקושי. כי אני מאמינה שכשנהיה כנים – גם אחרים ירגישו בנוח להיות כנים. ואולי, ביחד, נוכל להפסיק לנפח בלונים ולהתחיל לחיות באמת.</p>
+            </div>
+        </div>
+
+        <!-- Book 12 -->
+        <div class="slide book-slide hidden" data-slide="12">
+            <div class="book-number">12</div>
+            <h2>אין לי כוח היום</h2>
+            <div class="author">מאת: ירדן מלכה</div>
+            <div class="chapter-title">פרק פתיחה: מותר ליפול</div>
+            <div class="excerpt">
+                <p>אני כותבת את זה מהספה, בגדים נוחים שלא ראו מגהץ כבר שבועיים, שיער משוגע שאני לא מתכוונת לסרק היום. וזה בסדר.</p>
+                <p>היום אין לי כוח להיות האמא המושלמת. אין לי כוח לשחק עם הילדים, לערוך את הבית, להכין ארוחה מזינה. היום אני רוצה רק לשבת. לנשום. להיות.</p>
+                <p>והדבר הכי מטורף? זה בסדר גמור. באמת. כי אנחנו לא רובוטים. אנחנו בני אדם. ולפעמים, במיוחד בתקופות כאלה, אנחנו צריכים לתת לעצמנו רשות ליפול.</p>
+                <p>מותר להגיד "אין לי כוח היום". מותר לבקש עזרה. מותר לשלוח את הילדים עם פיצה ולטלוויזיה יום אחד. זה לא הופך אותנו להורים גרועים. זה הופך אותנו להורים אנושיים.</p>
+            </div>
+        </div>
+
+        <!-- Book 13 -->
+        <div class="slide book-slide hidden" data-slide="13">
+            <div class="book-number">13</div>
+            <h2>לחשוב חיובי</h2>
+            <div class="author">מאת: עאמר חאלדי</div>
+            <div class="chapter-title">פרק פתיחה: לא פוליאנה</div>
+            <div class="excerpt">
+                <p>כשאני אומר "לחשוב חיובי", אנשים מיד מדמיינים את אותה בחורה מ״פוליאנה" שמוצאת משהו טוב בכל דבר. הם חושבים שאני מציע להתעלם מהקושי, להדחיק את הכאב, לחייך כשהעולם בוער.</p>
+                <p>אבל זה לא זה. בכלל.</p>
+                <p>לחשוב חיובי זה לא להכחיש את המציאות. זה לראות אותה – באמת לראות – ואז לבחור איך להגיב אליה. זה להבין שגם ביום הכי קשה, יש נקודה אחת של אור. גם אם היא קטנה. גם אם רק ניצוץ.</p>
+                <p>בספר הזה אני לא מבטיח קסמים. אני מבטיח כלים – דרכים מעשיות לשנות את המיקוד, למצוא כוח גם כשנראה שאין, לבנות חוסן נפשי שלא מבטל את הקושי, אלא נותן כלים להתמודד איתו.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← הקודם</button>
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">14</span>
+        </div>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">הבא →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+        
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.add('hidden'));
+            slides[n].classList.remove('hidden');
+            document.getElementById('currentSlide').textContent = n + 1;
+            
+            document.getElementById('prevBtn').disabled = n === 0;
+            document.getElementById('nextBtn').disabled = n === totalSlides - 1;
+        }
+        
+        function changeSlide(direction) {
+            const newSlide = currentSlide + direction;
+            if (newSlide >= 0 && newSlide < totalSlides) {
+                currentSlide = newSlide;
+                showSlide(currentSlide);
+            }
+        }
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') changeSlide(1);
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+        });
+        
+        showSlide(0);
+    </script>
+</body>
+</html>
